@@ -1,5 +1,73 @@
 
 #include <Arduino.h>
+#include <WiFi.h>
+#include <WebServer.h>
+#include <SPI.h>
+#include <MFRC522.h>
+
+// RFID
+#define RST_PIN	27
+#define SS_PIN	5
+MFRC522 mfrc522(SS_PIN, RST_PIN);
+
+String info;
+
+// SSID & Password
+const char* ssid = "XARTIC369";
+const char* password = "**********";
+
+WebServer server(80);
+void handle_root();
+
+void setup() {
+  Serial.begin(112500); 
+
+  Serial.println("Try Connecting to ");
+  Serial.println(ssid);
+  
+  WiFi.begin(ssid, password);
+  
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(1000);
+    Serial.print(".");
+  }
+  Serial.println("");
+  Serial.println("WiFi connected successfully");
+  Serial.print("Got IP: ");
+  Serial.println(WiFi.localIP()); 
+  server.on("/", handle_root);
+  server.begin();
+  Serial.println("HTTP server started");
+  delay(100);
+
+  SPI.begin();
+	mfrc522.PCD_Init();
+	Serial.println("Lectura del UID");
+}
+
+void loop() {
+  if ( mfrc522.PICC_IsNewCardPresent()) 
+        {  
+            if ( mfrc522.PICC_ReadCardSerial()) 
+            {
+                  Serial.print("Card UID:");
+                  info="Card UID: ";
+                  server.handleClient();
+                  for (byte i = 0; i < mfrc522.uid.size; i++) {
+                          Serial.print(mfrc522.uid.uidByte[i] < 0x10 ? " 0" : " ");
+                          Serial.print(mfrc522.uid.uidByte[i], HEX);   
+                          info=String(mfrc522.uid.uidByte[i], HEX);
+                          server.handleClient();
+                  } 
+                  Serial.println();
+                  mfrc522.PICC_HaltA();         
+            }      
+	}	
+}
+void handle_root() {
+  server.send(200, "text/html", info);
+}
+
 /*
 #include <SPI.h>
 #include <MFRC522.h>
@@ -173,20 +241,7 @@ void loop()
   
   This sketch can be found at: Examples > SD(esp32) > SD_Test
 */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+/*
 // instruccions per SD
 #include "FS.h"
 #include "SD.h"
@@ -396,3 +451,4 @@ void setup(){
 void loop(){
 
 }
+*/
