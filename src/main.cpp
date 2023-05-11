@@ -1,6 +1,6 @@
 
 #include <Arduino.h>
-
+/*
 #include <SPI.h>
 #include <MFRC522.h>
 #include "FS.h"
@@ -69,9 +69,9 @@ void loop() {
     }
   }
 }
+*/
 
-
-/*LEctura microxips
+//LEctura microxips
 #include <Arduino.h>
 
 #include <SPI.h>
@@ -135,8 +135,9 @@ void loop() {
       mfrc522.PICC_HaltA();
     }
   }
-}*/
-/* Mostrar fitxer SD
+}
+/*
+//Mostrar fitxer SD
 #include <SPI.h>
 #include <SD.h>
 File myFile;
