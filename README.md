@@ -75,12 +75,13 @@ fitxer de prova
 ### Diagrama de flujo
 ```mermaid
 flowchart TD;
-  A[Inicializamos tarjeta SD]-->C[Si no se puede inicializar: No se ha podido inicializar];
-  A-->B[Si se puede inicializar: Inicialización exitosa];
-  C-->D[Abrimos el archivo]-->E[Si se encuentra el archivo];
-  E-->F[Sacamos por el terminal el contenido del archivo que vamos leyendo];
+  A[Inicializamos tarjeta SD]-->B[Se puede inicializar?];
+  B--si-->C[Inicialización exitosa];
+  B--no-->I[No se ha podido inicializar];
+  C-->D[Abrimos el archivo]-->E[Se encuentra el archivo?];
+  E--si-->F[Sacamos por el terminal el contenido del archivo que vamos leyendo];
   F-->G[Cerramos el archivo en cuanto deja de estar disponible];
-  D-->H[Si no se encuentra el archivo: Error al abrir el archivo];
+  E--no-->H[Error al abrir el archivo];
 
 ```
 
@@ -100,15 +101,9 @@ MFRC522 mfrc522(SS_PIN, RST_PIN);
 ```
 Ya dentro del `setup()`, iniciamos la comunicación serial, el bus SPI y el MFRC522.
 ```cpp
-<<<<<<< HEAD
-  Serial.begin(112500); 
-  SPI.begin();
-	mfrc522.PCD_Init();
-=======
 Serial.begin(112500); 
 SPI.begin();
 mfrc522.PCD_Init();
->>>>>>> ddc77553607707a4e2091b7facc9c518a46c58c8
 ```
 Una vez hecho, en el bucle miramos si hay alguna tarjeta presente cerca del módulo. 
 ```cpp
@@ -167,19 +162,13 @@ Lectura del UID
 Card UID: F5:4A:31:B2
 Card UID: 12:2D:E0:A2
 ```
-<<<<<<< HEAD
 
 ### Diagrama de flujo
 
 ```mermaid
 flowchart TD;
   A[Asignamos pines y creamos objeto MFRC522]-->B[Inicializamos el RC522];
-  B-->C[Hay una tarjeta presente?]-->D[Si];
-  D-->E[Sacamos el UID en formato hexadecimal por el terminal];
-  E-->F[Finalizamos lectura]-->C;
-  B-->G[S]
+  B-->C[Hay una tarjeta presente?]-- si -->D[Sacamos el UID en formato hexadecimal por el terminal];
+  C--no-->C;
+  D-->E[Finalizamos lectura]-->C;
 ```
-
-https://mermaid.js.org/syntax/flowchart.html
-=======
->>>>>>> ddc77553607707a4e2091b7facc9c518a46c58c8
