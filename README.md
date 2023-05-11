@@ -91,9 +91,9 @@ MFRC522 mfrc522(SS_PIN, RST_PIN);
 ```
 Ya dentro del `setup()`, iniciamos la comunicación serial, el bus SPI y el MFRC522.
 ```cpp
-    Serial.begin(112500); 
-    SPI.begin();
-	mfrc522.PCD_Init();
+Serial.begin(112500); 
+SPI.begin();
+mfrc522.PCD_Init();
 ```
 Una vez hecho, en el bucle miramos si hay alguna tarjeta presente cerca del módulo. 
 ```cpp
