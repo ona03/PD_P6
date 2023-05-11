@@ -100,9 +100,15 @@ MFRC522 mfrc522(SS_PIN, RST_PIN);
 ```
 Ya dentro del `setup()`, iniciamos la comunicación serial, el bus SPI y el MFRC522.
 ```cpp
+<<<<<<< HEAD
   Serial.begin(112500); 
   SPI.begin();
 	mfrc522.PCD_Init();
+=======
+Serial.begin(112500); 
+SPI.begin();
+mfrc522.PCD_Init();
+>>>>>>> ddc77553607707a4e2091b7facc9c518a46c58c8
 ```
 Una vez hecho, en el bucle miramos si hay alguna tarjeta presente cerca del módulo. 
 ```cpp
@@ -161,6 +167,7 @@ Lectura del UID
 Card UID: F5:4A:31:B2
 Card UID: 12:2D:E0:A2
 ```
+<<<<<<< HEAD
 
 ### Diagrama de flujo
 
@@ -174,3 +181,5 @@ flowchart TD;
 ```
 
 https://mermaid.js.org/syntax/flowchart.html
+=======
+>>>>>>> ddc77553607707a4e2091b7facc9c518a46c58c8
