@@ -48,13 +48,13 @@ void setup(){
     return;
   }
   Serial.println("inicializacion exitosa");
-  myFile = SD.open("archivo.txt");//abrimos el archivo
+  myFile = SD.open("archivo.txt");
   if (myFile) {
     Serial.println("archivo.txt:");
     while (myFile.available()) {
       Serial.write(myFile.read());
     }
-  myFile.close(); //cerramos el archivo
+  myFile.close();
   } 
   else {
     Serial.println("Error al abrir el archivo");
@@ -72,6 +72,8 @@ archivo.txt:
 hola :)
 fitxer de prova
 ```
+## Acciones 
+
 
 ## Lectura de etiqueta RFID
 
@@ -149,5 +151,5 @@ Y la salida por el terminal la siguiente:
 ```
 Lectura del UID
 Card UID: F5:4A:31:B2
-
-`
+Card UID: 12:2D:E0:A2
+```

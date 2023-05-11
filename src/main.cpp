@@ -69,7 +69,7 @@ void loop() {
     }
   }
 }
-*/
+
 
 //LEctura microxips
 #include <Arduino.h>
@@ -114,8 +114,10 @@ void writeFile(fs::FS &fs, const char * path, const char * message){
     Serial.println("Write failed");
   }
   file.close();
-}mos el Bus SPI
-  mfrc522.PCD_Init(); // Iniciamos el MFRC522
+}
+    Serial.begin(112500); 
+    SPI.begin();
+	mfrc522.PCD_Init();
   Serial.println("Lectura del UID");
 }
 
@@ -136,7 +138,7 @@ void loop() {
     }
   }
 }
-/*
+
 //Mostrar fitxer SD
 #include <SPI.h>
 #include <SD.h>
@@ -163,7 +165,7 @@ void setup(){
 }
 void loop()
 {
-}
+}*/
 
 /*
   Rui Santos
@@ -182,10 +184,10 @@ void loop()
 
 
 
-/*
 
 
- instruccions per SD
+
+// instruccions per SD
 #include "FS.h"
 #include "SD.h"
 #include "SPI.h"
@@ -394,5 +396,3 @@ void setup(){
 void loop(){
 
 }
-
-*/
