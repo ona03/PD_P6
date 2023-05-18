@@ -1,5 +1,5 @@
-
 #include <Arduino.h>
+
 #include <WiFi.h>
 #include <WebServer.h>
 #include <SPI.h>
@@ -11,10 +11,11 @@
 MFRC522 mfrc522(SS_PIN, RST_PIN);
 
 String info;
+String info1;
 
 // SSID & Password
-const char* ssid = "XARTIC369";
-const char* password = "**********";
+const char* ssid = "MOVISTAR_D84E";
+const char* password = ";9o2a3ei5RY#!:";
 
 WebServer server(80);
 void handle_root();
@@ -51,94 +52,28 @@ void loop() {
             if ( mfrc522.PICC_ReadCardSerial()) 
             {
                   Serial.print("Card UID:");
-                  info="Card UID: ";
-                  server.handleClient();
+                  //info="Card UID: ";
+                  //server.handleClient();
                   for (byte i = 0; i < mfrc522.uid.size; i++) {
                           Serial.print(mfrc522.uid.uidByte[i] < 0x10 ? " 0" : " ");
-                          Serial.print(mfrc522.uid.uidByte[i], HEX);   
-                          info=String(mfrc522.uid.uidByte[i], HEX);
-                          server.handleClient();
+                          //Serial.print(mfrc522.uid.uidByte[i], HEX);   
+                          info1=info1+String(mfrc522.uid.uidByte[i], HEX);
+                          //server.handleClient();
+                          //Serial.print(info1);
                   } 
+                  server.handleClient();
+                  Serial.print(info1);
                   Serial.println();
                   mfrc522.PICC_HaltA();         
             }      
 	}	
 }
 void handle_root() {
-  server.send(200, "text/html", info);
+  server.send(200, "text/html", info1);
 }
+
 
 /*
-#include <SPI.h>
-#include <MFRC522.h>
-#include "FS.h"
-#include "SD.h"
-#include "SPI.h"
-#define RST_PIN 27
-//Pin 9 para el reset del RC522
-#define SS_PIN 5
-//Pin 10 para el SS (SDA) del RC522
-MFRC522 mfrc522(SS_PIN, RST_PIN); //Creamos el objeto para el RC522
-
-void readFile(fs::FS &fs, const char * path){
-  Serial.printf("Reading file: %s\n", path);
-
-  File file = fs.open(path);
-  if(!file){
-    Serial.println("Failed to open file for reading");
-    return;
-  }
-
-  Serial.print("Read from file: ");
-  while(file.available()){
-    Serial.write(file.read());
-  }
-  file.close();
-}
-
-void writeFile(fs::FS &fs, const char * path, const char * message){
-  Serial.printf("Writing file: %s\n", path);
-
-  File file = fs.open(path, FILE_WRITE);
-  if(!file){
-    Serial.println("Failed to open file for writing");
-    return;
-  }
-  if(file.print(message)){
-    Serial.println("File written");
-  } else {
-    Serial.println("Write failed");
-  }
-  file.close();
-}
-
-void setup() {
-  Serial.begin(115200); //Iniciamos la comunicación
-  SPI.begin();
-  //Iniciamos el Bus SPI
-  mfrc522.PCD_Init(); // Iniciamos el MFRC522
-  Serial.println("Lectura del UID");
-}
-
-void loop() {
-  // Revisamos si hay nuevas tarjetas presentes
-  if ( mfrc522.PICC_IsNewCardPresent()){
-    //Seleccionamos una tarjeta
-    if ( mfrc522.PICC_ReadCardSerial()){
-      // Enviamos serialemente su UID
-      Serial.print("Card UID:");
-      for (byte i = 0; i < mfrc522.uid.size; i++) {
-        Serial.print(mfrc522.uid.uidByte[i] < 0x10 ? " 0" : " ");
-        Serial.print(mfrc522.uid.uidByte[i], HEX);
-        }
-      Serial.println();
-      // Terminamos la lectura de la tarjeta actual
-      mfrc522.PICC_HaltA();
-    }
-  }
-}
-
-
 //LEctura microxips
 #include <Arduino.h>
 
@@ -206,7 +141,8 @@ void loop() {
     }
   }
 }
-
+*/
+/*
 //Mostrar fitxer SD
 #include <SPI.h>
 #include <SD.h>
@@ -219,7 +155,7 @@ void setup(){
     return;
   }
   Serial.println("inicializacion exitosa");
-  myFile = SD.open("archivo.txt");//abrimos el archivo
+  myFile = SD.open("/archivo.txt");//abrimos el archivo
   if (myFile) {
     Serial.println("archivo.txt:");
     while (myFile.available()) {
@@ -233,8 +169,38 @@ void setup(){
 }
 void loop()
 {
-}*/
+}
 
+#include <SPI.h>
+#include <MFRC522.h>
+
+#define RST_PIN	27
+#define SS_PIN	5
+MFRC522 mfrc522(SS_PIN, RST_PIN);
+
+void setup() {
+  Serial.begin(112500); 
+  SPI.begin();
+	mfrc522.PCD_Init();
+	Serial.println("Lectura del UID");
+}
+
+void loop() {
+	if ( mfrc522.PICC_IsNewCardPresent()) 
+        {  
+            if ( mfrc522.PICC_ReadCardSerial()) 
+            {
+                  Serial.print("Card UID:");
+                  for (byte i = 0; i < mfrc522.uid.size; i++) {
+                          Serial.print(mfrc522.uid.uidByte[i] < 0x10 ? " 0" : " ");
+                          Serial.print(mfrc522.uid.uidByte[i], HEX);   
+                  } 
+                  Serial.println();
+                  mfrc522.PICC_HaltA();         
+            }      
+	}	
+}
+*/
 /*
   Rui Santos
   Complete project details at https://RandomNerdTutorials.com/esp32-microsd-card-arduino/

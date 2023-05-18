@@ -48,7 +48,7 @@ void setup(){
     return;
   }
   Serial.println("inicializacion exitosa");
-  myFile = SD.open("archivo.txt");
+  myFile = SD.open("/archivo.txt");
   if (myFile) {
     Serial.println("archivo.txt:");
     while (myFile.available()) {
@@ -66,8 +66,7 @@ void loop()
 ```
 Con una salida:
 ```
-Iniciando SD ...
-inicializacion exitosa
+Iniciando SD ...inicializacion exitosa
 archivo.txt:
 hola :)
 fitxer de prova
@@ -84,6 +83,8 @@ flowchart TD;
   E--no-->H[Error al abrir el archivo];
 
 ```
+### Montaje
+<image src='images/sd.jpg' alt='lectura sd' width='400'>
 
 ## Lectura de etiqueta RFID
 
@@ -159,8 +160,9 @@ void loop() {
 Y la salida por el terminal la siguiente:
 ```
 Lectura del UID
-Card UID: F5:4A:31:B2
-Card UID: 12:2D:E0:A2
+Card UID: 08 61 95 77
+Card UID: 08 55 6A 5E
+Card UID: 71 74 65 1C
 ```
 
 ### Diagrama de flujo
@@ -172,3 +174,5 @@ flowchart TD;
   C--no-->C;
   D-->E[Finalizamos lectura]-->C;
 ```
+### Montaje
+<image src='images/rfid.jpg' alt='lectura rfid' width='400'>
