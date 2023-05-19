@@ -1,6 +1,7 @@
 # Práctica 6: Procesadores digitales
-<div align="justify">
+
 ## Objetivo
+<div align="justify">
 El objetivo de esta práctica consistirá en entender el bus SPI y sus aplicaciones. Para ello, utilizaremos un lector RFID y un lector de tarjetas SD. Ambos periféricos funcionan con comunicación SPI. Nos dedicaremos a leer y a escribir información en una tarjeta SD y a ver el funcionamiento de la lectura RFID.
 
 ## Lectura-escritura de memoria SD
